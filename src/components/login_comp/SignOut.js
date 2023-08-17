@@ -4,6 +4,7 @@ import Image from "next/image";
 import logout from "../../../public/assets/logout.svg";
 import login from "../../../public/assets/login.svg";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 const SignOut = ({ session }) => {
   return (
