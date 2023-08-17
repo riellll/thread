@@ -7,20 +7,22 @@ import { redirect } from "next/navigation";
 
 const page = async () => {
   const session = await getServerSession(authOptions);
+
   if (!session) {
     redirect("/login");
   }
 
-  const userInfo = await fetchUser(user.id);
+  const userInfo = await fetchUser(session?.user.id);
   if (!userInfo?.onboarded) redirect("/");
   // console.log(userInfo);
+  
   const userData = {
-    id: session.user.id,
+    id: session?.user?.id,
     objectId: JSON.stringify(userInfo?._id),
-    username: userInfo ? userInfo?.username : session.user.username ?? "",
-    name: userInfo ? userInfo?.name : session.user.name ?? "",
+    username: userInfo ? userInfo?.username : session?.user?.username ?? "",
+    name: userInfo ? userInfo?.name : session?.user?.name ?? "",
     bio: userInfo ? userInfo?.bio : "",
-    image: userInfo ? userInfo?.image : session.user.image,
+    image: userInfo ? userInfo?.image : session?.user?.image,
   };
   return (
     <>

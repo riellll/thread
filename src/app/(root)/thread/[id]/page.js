@@ -14,7 +14,7 @@ const page = async ({ params }) => {
       redirect("/login");
     }
 
-  const userInfo = await fetchUser(user.id);
+  const userInfo = await fetchUser(session?.user.id);
   if (!userInfo?.onboarded) redirect("/");
 
 
@@ -26,7 +26,7 @@ const page = async ({ params }) => {
       <div>
         <PostCard
           id={thread._id}
-          currentUserId={session.user.id}
+          currentUserId={session?.user.id}
           parentId={thread.parentId}
           content={thread.text}
           author={thread.author}
@@ -38,7 +38,7 @@ const page = async ({ params }) => {
       <div className='mt-7'>
         <Comment
           threadId={params.id}
-          currentUserImg={session.user.image}
+          currentUserImg={session?.user.image}
           currentUserId={userInfo?._id.toString()}
         />
       </div>
@@ -48,7 +48,7 @@ const page = async ({ params }) => {
           <PostCard
             key={childItem._id}
             id={childItem._id}
-            currentUserId={session.user.id}
+            currentUserId={session?.user.id}
             parentId={childItem.parentId}
             content={childItem.text}
             author={childItem.author}
