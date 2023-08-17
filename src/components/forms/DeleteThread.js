@@ -1,5 +1,6 @@
 "use client";
 
+import { deleteThread } from "@/lib/actions/thread.action";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -25,7 +26,7 @@ const DeleteThread = ({
       height={18}
       className="cursor-pointer object-contain"
       onClick={async () => {
-        await DeleteThread(JSON.parse(threadId), pathname);
+        await deleteThread(JSON.parse(threadId), pathname);
         if (!parentId || !isComment) {
           router.push("/");
         }
