@@ -7,19 +7,18 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { fetchUser } from "@/lib/actions/user.action";
 import { redirect } from "next/navigation";
 
-
 const page = async ({ params }) => {
-    const session = await getServerSession(authOptions);
-    if (!session) {
-      redirect("/login");
-    }
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect("/login");
+  }
 
   const userInfo = await fetchUser(session?.user.id);
   if (!userInfo?.onboarded) redirect("/");
 
-
   const thread = await fetchThreadById(params.id);
-//   console.log(thread.author);
+  if (!thread) throw new Error("Error to fetch Data");
+    // console.log(thread.author);
 
   return (
     <section className="relative">
@@ -35,7 +34,7 @@ const page = async ({ params }) => {
         />
       </div>
 
-      <div className='mt-7'>
+      <div className="mt-7">
         <Comment
           threadId={params.id}
           currentUserImg={session?.user.image}
@@ -43,7 +42,7 @@ const page = async ({ params }) => {
         />
       </div>
 
-      <div className='mt-10'>
+      <div className="mt-10">
         {thread.children.map((childItem) => (
           <PostCard
             key={childItem._id}

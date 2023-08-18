@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 const PostThread = ({userId}) => {
   const pathname = usePathname();
   const router = useRouter();
- console.log(userId)
+//  console.log(userId)
   const handleSubmit = async (e) => {
     e.preventDefault();
 

@@ -52,7 +52,7 @@ const AccountProfile = ({ user, btnTitle }) => {
       return;
     }
 
-    console.log({ userId, name, path, username, bio, image });
+    // console.log({ userId, name, path, username, bio, image });
 
     await updateUser({ userId, name, path, username, image, bio });
 

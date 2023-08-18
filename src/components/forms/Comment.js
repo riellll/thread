@@ -5,19 +5,20 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const Comment = ({ threadId, currentUserImg, currentUserId }) => {
-  // console.log(currentUserImg)
   const pathname = usePathname();
+/*   console.log(
+    typeof threadId,
+    typeof currentUserImg,
+    typeof currentUserId,
+    typeof pathname
+  ); */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(e.target[1].value)
-    const comment = e.target[1].value;
-    await addCommentToThread({
-      threadId,
-      comment,
-      currentUserId,
-      pathname,
-    });
+    const comment = e.target[0].value;
+    if(!comment) return null
+    // console.log(e.target[0].value)
+    await addCommentToThread(threadId, comment, currentUserId, pathname);
 
     e.target.reset();
   };
@@ -43,6 +44,7 @@ const Comment = ({ threadId, currentUserImg, currentUserId }) => {
           rows="1"
           className="block mx-4 p-2.5 w-full text-sm text-gray-200 bg-black rounded-lg border border-gray-300  outline-none ring-0 shadow-none focus:shadow-none focus:outline-none border-none focus:border-none focus:ring-0 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Your message..."
+          required
         ></textarea>
         <button
           type="submit"

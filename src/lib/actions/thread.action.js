@@ -150,12 +150,24 @@ export async function addCommentToThread(threadId, commentText, userId, path) {
   }
 }
 
-export async function deleteThread({id, path}) {
+async function fetchAllChildThreads(threadId) {
+  const childThreads = await Thread.find({ parentId: threadId });
+
+  const descendantThreads = [];
+  for (const childThread of childThreads) {
+    const descendants = await fetchAllChildThreads(childThread._id);
+    descendantThreads.push(childThread, ...descendants);
+  }
+
+  return descendantThreads;
+}
+
+export async function deleteThread(id, path) {
   try {
     connectToDB();
-
+    console.log(id, path);
     // Find the thread to be deleted (the main thread)
-    const mainThread = await Thread.findById(id)
+    const mainThread = await Thread.findById(id);
     // .populate("author community");
 
     if (!mainThread) {
@@ -179,12 +191,12 @@ export async function deleteThread({id, path}) {
       ].filter((id) => id !== undefined)
     );
 
-    const uniqueCommunityIds = new Set(
+    /*    const uniqueCommunityIds = new Set(
       [
         ...descendantThreads.map((thread) => thread.community?._id?.toString()), // Use optional chaining to handle possible undefined values
         mainThread.community?._id?.toString(),
       ].filter((id) => id !== undefined)
-    );
+    ); */
 
     // Recursively delete child threads and their descendants
     await Thread.deleteMany({ _id: { $in: descendantThreadIds } });
@@ -196,7 +208,7 @@ export async function deleteThread({id, path}) {
     );
 
     // Update Community model
-/*     await Community.updateMany(
+    /*     await Community.updateMany(
       { _id: { $in: Array.from(uniqueCommunityIds) } },
       { $pull: { threads: { $in: descendantThreadIds } } }
     );

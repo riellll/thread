@@ -11,7 +11,7 @@ const DeleteThread = ({
   parentId,
   isComment,
 }) => {
-
+// console.log(threadId);
     const pathname = usePathname();
     const router = useRouter();
   
@@ -26,10 +26,15 @@ const DeleteThread = ({
       height={18}
       className="cursor-pointer object-contain"
       onClick={async () => {
-        await deleteThread(JSON.parse(threadId), pathname);
+        await deleteThread(threadId, pathname);
         if (!parentId || !isComment) {
           router.push("/");
         }
+        console.log(threadId,
+          currentUserId,
+          authorId,
+          parentId,
+          isComment,)
       }}
     />
   );

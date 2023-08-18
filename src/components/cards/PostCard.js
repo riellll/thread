@@ -17,7 +17,7 @@ const PostCard = ({
   comments,
   isComment,
 }) => {
-  console.log(isComment);
+  // console.log(isComment);
   // const isComment = false;
   return (
     <article
@@ -96,7 +96,7 @@ const PostCard = ({
         </div>
 
         { <DeleteThread
-        threadId={JSON.stringify(id)}
+        threadId={id.toString()}
         currentUserId={currentUserId}
         authorId={author.id}
         parentId={parentId}
