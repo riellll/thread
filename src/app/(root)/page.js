@@ -1,8 +1,20 @@
 import PostCard from "@/components/cards/PostCard";
 import { fetchPosts } from "@/lib/actions/thread.action";
 import Image from "next/image";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { fetchUser } from "@/lib/actions/user.action";
+import { redirect } from "next/navigation";
+
 
 export default async function Home() {
+    const { user } = await getServerSession(authOptions);
+  if (!user) return null;
+
+  const userInfo = await fetchUser(user.id);
+  if (!userInfo?.onboarded) redirect("/onboarding");
+
+
   const result = await fetchPosts(1, 30);
   // console.log(result);
 
