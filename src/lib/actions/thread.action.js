@@ -150,12 +150,13 @@ export async function addCommentToThread(threadId, commentText, userId, path) {
   }
 }
 
-export async function deleteThread(id, path) {
+export async function deleteThread({id, path}) {
   try {
     connectToDB();
 
     // Find the thread to be deleted (the main thread)
-    const mainThread = await Thread.findById(id).populate("author community");
+    const mainThread = await Thread.findById(id)
+    // .populate("author community");
 
     if (!mainThread) {
       throw new Error("Thread not found");
@@ -195,11 +196,11 @@ export async function deleteThread(id, path) {
     );
 
     // Update Community model
-    await Community.updateMany(
+/*     await Community.updateMany(
       { _id: { $in: Array.from(uniqueCommunityIds) } },
       { $pull: { threads: { $in: descendantThreadIds } } }
     );
-
+ */
     revalidatePath(path);
   } catch (error) {
     throw new Error(`Failed to delete thread: ${error.message}`);

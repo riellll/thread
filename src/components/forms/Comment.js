@@ -11,12 +11,13 @@ const Comment = ({ threadId, currentUserImg, currentUserId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(e.target[1].value)
-    await addCommentToThread(
+    const comment = e.target[1].value;
+    await addCommentToThread({
       threadId,
-      e.target[1].value,
+      comment,
       currentUserId,
-      pathname
-    );
+      pathname,
+    });
 
     e.target.reset();
   };
@@ -27,9 +28,7 @@ const Comment = ({ threadId, currentUserImg, currentUserId }) => {
         Your message
       </label>
       <div className="flex items-center px-3 py-3 bg-black border-y border-y-gray-500 dark:bg-gray-700">
-        <div
-          className="inline-flex justify-center p-2 text-gray-500 rounded-full dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
-        >
+        <div className="inline-flex justify-center p-2 text-gray-500 rounded-full dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
           <Image
             src={currentUserImg}
             alt="heart"
