@@ -1,6 +1,23 @@
-import React from 'react'
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { fetchUser, fetchUsers } from "@/lib/actions/user.action";
+import { redirect } from "next/navigation";
 
-const page = () => {
+const page = async ({searchParams}) => {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect("/login");
+  }
+  console.log(searchParams);
+  const userInfo = await fetchUser(session?.user.id);
+  if (!userInfo?.onboarded) redirect("/");
+
+/*   const result = await fetchUsers({
+    userId: session?.user.id,
+    searchString: searchParams.q,
+    pageNumber: searchParams?.page ? +searchParams.page : 1,
+    pageSize: 25,
+  }); */
   return (
     <>
     <h1 className='text-3xl font-bold text-white pb-10'>Search</h1>
