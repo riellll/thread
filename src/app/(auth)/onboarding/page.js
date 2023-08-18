@@ -9,10 +9,11 @@ const page = async () => {
   if (!session) {
     redirect("/login");
   }
-  console.log(searchParams);
+
   const userInfo = await fetchUser(session?.user.id);
-  if (!userInfo?.onboarded) redirect("/");
+  if (userInfo?.onboarded) redirect("/");
   // console.log(user);
+
   const userData = {
     id: session?.user?.id,
     objectId: JSON.stringify(userInfo?._id),

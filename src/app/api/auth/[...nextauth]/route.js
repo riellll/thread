@@ -32,7 +32,8 @@ export const authOptions = {
         // session.userName = token.userName;
         // console.log(token,session);
         return session;
-    }
+    },
+    async redirect({ url, baseUrl }) { return baseUrl },
   },
  /*  callbacks: {
     async session({ session }) {
