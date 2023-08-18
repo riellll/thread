@@ -2,9 +2,11 @@ import React from "react";
 import logout from "../../../public/assets/logout.svg";
 // import signedIn from '../../../public/assets/user.svg'
 import Image from "next/image";
+
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import SignOut from "../login_comp/SignOut";
+import Link from "next/link";
 
 const TopBar = async () => {
   const session = await getServerSession(authOptions);
@@ -37,18 +39,11 @@ const TopBar = async () => {
                   ></path>
                 </svg>
               </button> */}
-              <a href="https://flowbite.com" className="flex ml-2 md:mr-24">
-                <Image
-                  src="https://flowbite.com/docs/images/logo.svg"
-                  className="h-8 mr-3"
-                  alt="FlowBite Logo"
-                  width={24}
-                  height={24}
-                />
+              <Link href="/" className="flex ml-2 md:mr-24">
                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
-                  Postchain
+                  Thread
                 </span>
-              </a>
+              </Link>
             </div>
             <div className="flex items-center">
               <SignOut session={session} />
