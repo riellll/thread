@@ -22,7 +22,7 @@ const UserCard = ({ id, name, username, imgUrl, personType }) => {
       </div>
     </div>
 
-    <Button
+    <button
       className='user-card_btn'
       onClick={() => {
         if (isCommunity) {
@@ -33,7 +33,7 @@ const UserCard = ({ id, name, username, imgUrl, personType }) => {
       }}
     >
       View
-    </Button>
+    </button>
   </article>
   )
 }
