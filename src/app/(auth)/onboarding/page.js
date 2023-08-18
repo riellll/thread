@@ -13,15 +13,14 @@ const page = async () => {
   const userInfo = await fetchUser(session?.user.id);
   if (!userInfo?.onboarded) redirect("/");
   // console.log(user);
-   const userData = {
-    id: session?.user.id,
-    objectId: userInfo?._id.toString(),
-    username: userInfo ? userInfo?.username : session?.user.username ?? "",
-    name: userInfo ? userInfo?.name : session?.user.name ?? "",
+  const userData = {
+    id: session?.user?.id,
+    objectId: JSON.stringify(userInfo?._id),
+    username: userInfo ? userInfo?.username : session?.user?.username ?? "",
+    name: userInfo ? userInfo?.name : session?.user?.name ?? "",
     bio: userInfo ? userInfo?.bio : "",
-    image: userInfo ? userInfo?.image : session?.user.image,
+    image: userInfo ? userInfo?.image : session?.user?.image,
   };
-
 
   return (
     <main className="mx-auto flex max-w-3xl flex-col justify-start px-10 py-20">

@@ -12,7 +12,7 @@ export default async function Home() {
   if (!session) {
     redirect("/login");
   }
-  console.log(searchParams);
+  // console.log(searchParams);
   const userInfo = await fetchUser(session?.user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
