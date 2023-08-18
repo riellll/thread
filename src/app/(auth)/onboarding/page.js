@@ -14,12 +14,12 @@ const page = async () => {
   if (!userInfo?.onboarded) redirect("/");
   // console.log(user);
    const userData = {
-    id: user.id,
+    id: session?.user.id,
     objectId: userInfo?._id.toString(),
-    username: userInfo ? userInfo?.username : user.username ?? "",
-    name: userInfo ? userInfo?.name : user.name ?? "",
+    username: userInfo ? userInfo?.username : session?.user.username ?? "",
+    name: userInfo ? userInfo?.name : session?.user.name ?? "",
     bio: userInfo ? userInfo?.bio : "",
-    image: userInfo ? userInfo?.image : user.image,
+    image: userInfo ? userInfo?.image : session?.user.image,
   };
 
 
