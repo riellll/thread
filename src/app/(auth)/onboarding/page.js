@@ -5,11 +5,13 @@ import { fetchUser } from "@/lib/actions/user.action";
 import { redirect } from "next/navigation";
 
 const page = async () => {
-  const { user } = await getServerSession(authOptions);
-  if (!user) return null;
-
-  const userInfo = await fetchUser(user.id);
-  if (userInfo?.onboarded) redirect("/");
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect("/login");
+  }
+  console.log(searchParams);
+  const userInfo = await fetchUser(session?.user.id);
+  if (!userInfo?.onboarded) redirect("/");
   // console.log(user);
    const userData = {
     id: user.id,

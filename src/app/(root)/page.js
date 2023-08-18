@@ -8,10 +8,12 @@ import { redirect } from "next/navigation";
 
 
 export default async function Home() {
-    const { user } = await getServerSession(authOptions);
-  if (!user) return null;
-
-  const userInfo = await fetchUser(user.id);
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect("/login");
+  }
+  console.log(searchParams);
+  const userInfo = await fetchUser(session?.user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
 
