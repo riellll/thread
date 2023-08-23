@@ -7,10 +7,12 @@ import search from '../../../public/assets/search.svg'
 import creat from '../../../public/assets/create.svg'
 import profile from '../../../public/assets/user.svg'
 import { usePathname, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 
 const BottomBar = () => {
 
+  const { data: session } = useSession();
    const pathname = usePathname();
 
 
@@ -56,7 +58,7 @@ const BottomBar = () => {
             </Link>
          </li>
          <li>
-            <Link href="/profile/dasda" className={`relative flex flex-col items-center gap-2 rounded-lg p-2 sm:flex-1 sm:px-2 sm:py-2.5 ${pathname === '/profile/dasda' && 'bg-purple-900'}`}>
+            <Link href={`/profile/${session?.user.id}`} className={`relative flex flex-col items-center gap-2 rounded-lg p-2 sm:flex-1 sm:px-2 sm:py-2.5 ${pathname === `/profile/${session?.user.id}` && 'bg-purple-900'}`}>
                <Image className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white"
                 src={profile}
                 alt='heart'

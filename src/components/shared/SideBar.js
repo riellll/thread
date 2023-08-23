@@ -16,7 +16,7 @@ const SideBar = () => {
 
   const linkPath = `/profile/${session?.user.id}`
 
-  console.log(session?.user?.id);
+  console.log(session);
 
   return (
     <>

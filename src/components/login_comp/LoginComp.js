@@ -7,11 +7,70 @@ const LoginComp = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const email = e.target[0].value;
+    const password = e.target[1].value;
+    if (!email && !password) return null;
+    // console.log(email, password);
+    signIn("credentials", { email, password });
+  };
+
   return (
     <>
+      <div className="flex flex-col justify-center text-gray-200 justify-items-center items-center py-4">
+        <h2 className="text-center">
+          You can login as a guest if you don&#39;t want to use your <br />
+          Google Account.
+        </h2>
+        <p className="pt-2 text-slate-500">Email: test@gmail.com</p>
+        <p className="text-slate-500">Password: test123456</p>
+      </div>
+      <form onSubmit={handleLogin}>
+        <div className="mb-6">
+          <label
+            htmlFor="email"
+            className="inline-block text-lg mb-2 text-gray-200 "
+          >
+            Email
+          </label>
+          <input
+            type="email"
+            className="border border-gray-200 rounded p-2 w-full"
+            name="email"
+          />
+        </div>
+
+        <div className="mb-6">
+          <label
+            htmlFor="password"
+            className="inline-block text-lg mb-2 text-gray-200"
+          >
+            Password
+          </label>
+          <input
+            type="password"
+            className="border border-gray-200 rounded p-2 w-full"
+            name="password"
+          />
+        </div>
+
+        <div className="mb-6">
+          <button
+            type="submit"
+            className="w-full inline-flex justify-center rounded-lg border py-[calc(theme(spacing.2)-1px)] px-[calc(theme(spacing.3)-1px)] text-sm outline-2 outline-offset-2 transition-colors relative overflow-hidden text-white before:absolute before:inset-0 active:before:bg-transparent hover:before:bg-white/10 active:bg-cyan-600 active:text-white/80 before:transition-colors"
+          >
+            Sign In
+          </button>
+        </div>
+      </form>
+      <div className="m-8 text-center text-gray-200">
+        <p>--- OR ---</p>
+      </div>
       <button
         className="w-full inline-flex justify-center rounded-lg border py-[calc(theme(spacing.2)-1px)] px-[calc(theme(spacing.3)-1px)] text-sm outline-2 outline-offset-2 transition-colors relative overflow-hidden text-white before:absolute before:inset-0 active:before:bg-transparent hover:before:bg-white/10 active:bg-cyan-600 active:text-white/80 before:transition-colors"
-        onClick={() => signIn("google", { callbackUrl: '/' })}
+        onClick={() => signIn("google", { callbackUrl: "/" })}
       >
         <svg
           aria-hidden="true"
