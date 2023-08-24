@@ -40,9 +40,11 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
 
   const posts = await postsQuery.exec();
 
+  const pageCount = Math.ceil(totalPostsCount / pageSize);
+
   const isNext = totalPostsCount > skipAmount + posts.length;
 
-  return { posts, isNext };
+  return { posts, isNext, pageCount };
 }
 
 export async function createThread({ text, author, path }) {

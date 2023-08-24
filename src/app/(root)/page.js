@@ -5,9 +5,10 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { fetchUser } from "@/lib/actions/user.action";
 import { redirect } from "next/navigation";
+import Pagination from "@/components/shared/Pagination";
 
 
-export default async function Home() {
+export default async function Home({searchParams}) {
   // const session = await getServerSession(authOptions);
  /*  if (!session) {
     redirect("/login");
@@ -17,7 +18,7 @@ export default async function Home() {
   // if (!userInfo?.onboarded) redirect("/onboarding");
 
 
-  const result = await fetchPosts(1, 30);
+  const result = await fetchPosts(searchParams.page ? searchParams.page : 1, 10);
   // console.log(result);
 
   return (
@@ -45,11 +46,12 @@ export default async function Home() {
         )}
       </section>
 
-      {/*  <Pagination
+       <Pagination
         path='/'
         pageNumber={searchParams?.page ? +searchParams.page : 1}
         isNext={result.isNext}
-      /> */}
+        Pcount={result.pageCount}
+      />
     </>
   );
 }
