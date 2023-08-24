@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+
 // import User from "@/model/User";
 // import connect from "@/utils/db";
 // import bcrypt from "bcryptjs";
@@ -21,7 +22,7 @@ export const authOptions = {
           email: "test@gmail.com",
           password: "test123456",
         };
-        console.log(credentials);
+        // console.log(credentials);
         if (credentials?.email === user.email && credentials?.password === user.password) {
           return user;
         } else {

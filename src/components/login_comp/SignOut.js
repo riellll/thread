@@ -5,8 +5,10 @@ import logout from "../../../public/assets/logout.svg";
 import login from "../../../public/assets/login.svg";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const SignOut = ({ session }) => {
+  const router = useRouter()
   return (
     <>
       <div className="flex cursor-pointer gap-3 p-2 hover:bg-purple-900 rounded-lg">
@@ -16,6 +18,7 @@ const SignOut = ({ session }) => {
           width={24}
           height={24}
           className="text-white"
+          onClick={() => session ? signOut("google", { callbackUrl: "/" }) : router.push('/login')}
         />
         {session ? (
           <button

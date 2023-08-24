@@ -86,7 +86,7 @@ const SideBar = () => {
                   height={24}
                 />
 
-                <span className="ml-3">Creat Post</span>
+                <span className="ml-3">Create Post</span>
               </Link>
             </li>
             <li>

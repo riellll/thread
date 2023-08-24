@@ -8,13 +8,13 @@ import { redirect } from "next/navigation";
 
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
-  if (!session) {
+  // const session = await getServerSession(authOptions);
+ /*  if (!session) {
     redirect("/login");
-  }
+  } */
   // console.log(searchParams);
-  const userInfo = await fetchUser(session?.user.id);
-  if (!userInfo?.onboarded) redirect("/onboarding");
+  // const userInfo = await fetchUser(session?.user.id);
+  // if (!userInfo?.onboarded) redirect("/onboarding");
 
 
   const result = await fetchPosts(1, 30);
@@ -33,7 +33,7 @@ export default async function Home() {
               <PostCard
                 key={post._id}
                 id={post._id}
-                currentUserId={'user.id'}
+                currentUserId={'session?.user.id'}
                 parentId={post.parentId}
                 content={post.text}
                 author={post.author}
